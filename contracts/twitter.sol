@@ -24,7 +24,7 @@ contract twitter{
     uint nextId;
     uint nextMessageId;
     function _tweet(address _from, string memory _content) internal {
-        require(msg.sender==_from || operators[msg.sender][_from], "Unauthorized");
+        require(msg.sender==_from || operators[_from][msg.sender], "Unauthorized");
         tweets[nextId]=Tweet({id:nextId,author:_from,content:_content,createdAt:block.timestamp});
         tweetsof[_from].push(nextId);
         nextId++;
