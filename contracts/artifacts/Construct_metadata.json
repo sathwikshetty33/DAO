@@ -7,12 +7,17 @@
 		"abi": [
 			{
 				"inputs": [],
-				"name": "num",
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "a",
 				"outputs": [
 					{
-						"internalType": "int256",
+						"internalType": "uint256",
 						"name": "",
-						"type": "int256"
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -32,7 +37,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/newContract.sol": "newContract"
+			"contracts/constructor.sol": "Construct"
 		},
 		"evmVersion": "cancun",
 		"libraries": {},
@@ -46,12 +51,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/newContract.sol": {
-			"keccak256": "0xda4a549efa8fd3451e5e0ce184f40770f9dff5291022cefa2c698bb19b21d1c3",
+		"contracts/constructor.sol": {
+			"keccak256": "0xc4e5aabec6fd123c16a719752fba1ced71a84e03378e8a8152959655cd0918ea",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://77a267d98cea39c1dcbbebd148fd2a73e5e9c0c0928e0e973b6b795d6d833f72",
-				"dweb:/ipfs/QmbeRzSBr142J1umDKHMHHu6qCqFirXWtPFmgTwduN34by"
+				"bzz-raw://020d820fadf3cbbb87c08fb6fd12dc715c8464408876a5087a4a239b3434c7ea",
+				"dweb:/ipfs/QmbLsrGF85Wy1ijTz3JkizJSHKzcBZ9ngRWPnYV3UXZt5P"
 			]
 		}
 	},
