@@ -28,6 +28,63 @@
 			},
 			{
 				"inputs": [],
+				"name": "Contribution",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "PoposalList",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "desc",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amt",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address payable",
+								"name": "recepient",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "votes",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "end",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isExecuted",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct DAO.Proposal[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "availableFunds",
 				"outputs": [
 					{
@@ -50,6 +107,42 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_desc",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_amt",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address payable",
+						"name": "_recepient",
+						"type": "address"
+					}
+				],
+				"name": "createProposal",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_pid",
+						"type": "uint256"
+					}
+				],
+				"name": "executeProposal",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -203,6 +296,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amt",
+						"type": "uint256"
+					}
+				],
+				"name": "redeemshare",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "totalShares",
 				"outputs": [
@@ -213,6 +319,37 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amt",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_to",
+						"type": "address"
+					}
+				],
+				"name": "transferShare",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_pid",
+						"type": "uint256"
+					}
+				],
+				"name": "voteProposal",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -281,11 +418,11 @@
 	},
 	"sources": {
 		"contracts/dao.sol": {
-			"keccak256": "0xe23d254cbb3806f3cf76e99d262b89e22da6088a9936f10e287c9f4e71b06d92",
+			"keccak256": "0x8c5c0a00e59b5e0d391b3252fa2666260e0e278a7ea912ec83411edc33efd836",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://f436ec6aeabfecb0f1689eb5d0acfe853295d8ac0104e93fc7de47cd32aa6a86",
-				"dweb:/ipfs/QmT9Y762GcznrNc3E2PcHdpLG41B1TFNGQBK1CZCdQTXNg"
+				"bzz-raw://145a7fa0ca44bb6b6d627fdf1569e302e232f8cd1ad4ff24e0488f97df68baed",
+				"dweb:/ipfs/QmctD8WZDTDYJiv1YAYMCuZcHTFp6a7NoepefV21xntMWG"
 			]
 		}
 	},

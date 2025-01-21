@@ -44,7 +44,7 @@ contract DAO{
         _;
     }
     function Contribution() public payable {
-    require(block.timestamp >= contributionTimeEnd,"Contribution Time ended");
+    require(block.timestamp <= contributionTimeEnd,"Contribution Time ended");
     require(msg.value > 0, "Send more then 0");
     isInvestor[msg.sender]=true;
     numOfShares[msg.sender] += msg.value;
@@ -88,10 +88,27 @@ contract DAO{
         require(_pid >= 0 && _pid < nextProposalId,"Invalid Proposal id");
         require(isVoted[msg.sender][_pid]==false,"Already Voted");
         Proposal storage propsal = proposals[_pid];
-        require(propsal.end <= block.timestamp,"Voting period Over");
+        require(propsal.end >= block.timestamp,"Voting period Over");
         require(propsal.isExecuted==false,"Already Executed");
         propsal.votes+=numOfShares[msg.sender];
-        isVoted[msg.sender][_pid]==true;
+        isVoted[msg.sender][_pid]=true;
     }
-    
+    function executeProposal(uint _pid) public onlyManager(){
+        require(_pid >= 0 && _pid < nextProposalId,"Invalid Proposal id");
+        Proposal storage propsal = proposals[_pid];
+        require((propsal.votes*100/totalShares)>=51,"No Majority votes");
+        require(propsal.isExecuted==false,"Already Executed");
+        require(availableFunds >= propsal.amt,"Not enough funds currently");
+        propsal.recepient.transfer(propsal.amt);
+        propsal.isExecuted==true;
+        availableFunds-=propsal.amt;
+    }
+    function PoposalList() public view returns(Proposal[] memory){
+        Proposal[] memory arr = new Proposal[](nextProposalId-1);
+        for(uint i=0;i<nextProposalId;i++)
+        {
+            arr[i]=(proposals[i]);
+        }
+        return arr;
+    }
 }
