@@ -29,7 +29,7 @@ contract DAO{
 
     constructor(uint _contributionTimeEnd, uint _voteTime, uint _qorum){
         require(_qorum>0 && _qorum < 100, "Not a Valid ");
-        contributionTimeEnd = _contributionTimeEnd;
+        contributionTimeEnd = block.timestamp + _contributionTimeEnd;
         voteTime = _voteTime;
         quorum = _qorum;
         manager = msg.sender;
@@ -42,6 +42,56 @@ contract DAO{
     modifier onlyManager(){
         require(msg.sender==manager,"You are not a manager");
         _;
+    }
+    function Contribution() public payable {
+    require(block.timestamp >= contributionTimeEnd,"Contribution Time ended");
+    require(msg.value > 0, "Send more then 0");
+    isInvestor[msg.sender]=true;
+    numOfShares[msg.sender] += msg.value;
+    totalShares += msg.value;
+    availableFunds+=msg.value;
+    investorList.push(msg.sender);
+    }
+    function redeemshare(uint amt) public onlyInvestor() {
+        require(amt<=numOfShares[msg.sender],"You shares are less than the amount");
+        require(amt > 0, "Send more then 0");
+        require(availableFunds >= amt,"Not enough funds");
+        totalShares -= amt;
+        numOfShares[msg.sender]-=amt;
+        if(numOfShares[msg.sender]==0)
+        {
+            isInvestor[msg.sender]=false;
+        }
+        availableFunds -= amt;
+        payable(msg.sender).transfer(amt);
+    }
+    function transferShare(uint amt, address _to) public {
+        require(amt > 0, "Send more then 0");
+        require(availableFunds >= amt,"Not enough funds");
+        require(amt<=numOfShares[msg.sender],"You shares are less than the amount");
+        totalShares -= amt;
+        numOfShares[msg.sender]-=amt;
+        numOfShares[_to]+=amt;
+        if(numOfShares[msg.sender]==0)
+        {
+            isInvestor[msg.sender]=false;
+        }
+        isInvestor[_to]=true;
+        investorList.push(_to);
+    }
+    function createProposal(string calldata _desc, uint _amt,address payable _recepient) public onlyManager {
+        require(availableFunds >= _amt,"Not enough funds currently");
+        proposals[nextProposalId] = Proposal(nextProposalId,_desc,_amt,_recepient,0,block.timestamp + voteTime,false);
+        nextProposalId++;
+    }
+    function voteProposal(uint _pid) public onlyInvestor() {
+        require(_pid >= 0 && _pid < nextProposalId,"Invalid Proposal id");
+        require(isVoted[msg.sender][_pid]==false,"Already Voted");
+        Proposal storage propsal = proposals[_pid];
+        require(propsal.end <= block.timestamp,"Voting period Over");
+        require(propsal.isExecuted==false,"Already Executed");
+        propsal.votes+=numOfShares[msg.sender];
+        isVoted[msg.sender][_pid]==true;
     }
     
 }
